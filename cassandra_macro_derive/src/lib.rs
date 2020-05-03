@@ -32,7 +32,7 @@ fn impl_cassandra_macro(ast: &syn::DeriveInput) -> TokenStream {
             }
             fields.iter().cloned().collect()
         }
-        _ => panic!("#[derive(CassandraConfig)] can only be used with structs"),
+        _ => panic!("#[derive(Cassandra)] can only be used with structs"),
     };
 
     extract_struct_attributes(&mut table_meta, &fields);
@@ -234,7 +234,7 @@ fn extract_struct_attributes(table_meta: &mut TableMeta, fields: &Vec<syn::Field
                         for meta_item in meta_items {
                             match *meta_item {
                                 syn::NestedMeta::Meta(ref item) => match *item {
-                                    // email, url, phone, credit_card, non_control_character
+
                                     syn::Meta::Path(ref name) => {
                                         match name.get_ident().unwrap().to_string().as_ref() {
                                             "primary_key" => {
