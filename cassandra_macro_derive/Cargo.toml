@@ -3,10 +3,12 @@ name = "cassandra_macro_derive"
 version = "0.1.0"
 authors = ["NunuM <nuno@nunum.me>"]
 edition = "2018"
+license = "MIT"
 description = "Macros 1.1 implementation of #[derive(Cassandra)]"
 homepage = "https://github.com/NunuM/rust-cassandra-tables-from-rust-struct-macro"
 repository = "https://github.com/NunuM/rust-cassandra-tables-from-rust-struct-macro"
 keywords = ["cassandra", "api", "migrations", "automation", "cql", "tables"]
+readme = "README.md"
 
 [lib]
 proc-macro = true
