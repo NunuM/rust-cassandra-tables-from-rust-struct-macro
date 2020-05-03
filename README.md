@@ -5,8 +5,8 @@ Custom derive to simplify cassandra table creation from rust structs
 #### Installation
 
 ```
-cassandra_macro = "0.10"
-cassandra_macro_derive = "0.10"
+cassandra_macro = "0.1.0"
+cassandra_macro_derive = "0.1.0"
 ```
 
 #### Example with __primary key__
