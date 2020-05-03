@@ -1,10 +1,13 @@
 [package]
 name = "cassandra_macro_derive"
 version = "0.1.0"
-authors = ["nuno <1140358@isep.ipp.pt>"]
+authors = ["NunuM <nuno@nunum.me>"]
 edition = "2018"
+description = "Macros 1.1 implementation of #[derive(Cassandra)]"
+homepage = "https://github.com/NunuM/rust-cassandra-tables-from-rust-struct-macro"
+repository = "https://github.com/NunuM/rust-cassandra-tables-from-rust-struct-macro"
+keywords = ["cassandra", "api", "migrations", "automation", "cql", "tables"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
 proc-macro = true
 

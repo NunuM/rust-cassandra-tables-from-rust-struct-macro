@@ -77,20 +77,20 @@ fn impl_cassandra_macro(ast: &syn::DeriveInput) -> TokenStream {
     let impl_ast = quote!(
         impl #impl_generics Cassandra for #ident #ty_generics #where_clause {
 
-            fn create_table_cql(&self) -> String {
-                format!("{}", #create_table_sql )
+            fn create_table_cql(&self) -> &str {
+                #create_table_sql
             }
 
-            fn drop_table_cql(&self) -> String {
-                format!("{}", #drop_table_sql )
+            fn drop_table_cql(&self) -> &str {
+                &#drop_table_sql
             }
 
             fn key_space(&self) -> &str {
-                #key_space
+                &#key_space
             }
 
             fn table_name(&self) -> &str {
-                #table_name
+                &#table_name
             }
 
         }
