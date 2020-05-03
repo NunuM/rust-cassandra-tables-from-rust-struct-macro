@@ -7,7 +7,7 @@ license = "MIT"
 description = "Macros 1.1 implementation of #[derive(Cassandra)]"
 homepage = "https://github.com/NunuM/rust-cassandra-tables-from-rust-struct-macro"
 repository = "https://github.com/NunuM/rust-cassandra-tables-from-rust-struct-macro"
-keywords = ["cassandra", "api", "migrations", "automation", "cql", "tables"]
+keywords = ["cassandra", "api", "migrations", "automation", "cql"]
 readme = "README.md"
 
 [lib]
