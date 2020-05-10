@@ -14,6 +14,56 @@ cdrs = { version = "2" }
 cassandra_macro = "0.1.1"       
 cassandra_macro_derive = "0.1.1"
 ```                             
+#### Api
+
+```rust
+pub trait CassandraTable {
+    /// key space
+    fn key_space() -> &'static str;
+
+    /// Table name
+    fn table_name() -> &'static str;
+
+    /// CQL for table creation
+    fn create_table_cql() -> &'static str;
+
+    /// CQL for drop table
+    fn drop_table_cql() -> &'static str;
+
+    /// Prepared statement for selection by primary keys
+    fn select_by_primary_keys(projection: Projection) -> String;
+
+    /// Prepared statement for selection by primary keys and cluster keys
+    fn select_by_primary_and_cluster_keys(projection: Projection) -> String;
+
+    /// Prepared statement for update by primary keys
+    fn update_by_primary_keys(columns: Vec<String>) -> String;
+
+    /// Prepared statement for update by primary keys and cluster keys
+    fn update_by_primary_and_cluster_keys(columns: Vec<String>) -> String;
+
+    /// Prepared statement for delete by primary keys
+    fn delete_by_primary_keys() -> String;
+
+    /// Prepared statement for delete by primary keys and cluster key
+    fn delete_by_primary_and_cluster_keys() -> String;
+
+    /// Create `StoreQuery` containing the prepared statement
+    /// to store this entity
+    fn store_query(&self) -> StoreQuery;
+
+    /// Create `UpdateQuery` containing the prepared statement
+    /// to update this entity
+    ///
+    /// The statement only can update columns that are not
+    /// part of the primary keys.
+    fn update_query(&self) -> Result<UpdateQuery, TableWithNoUpdatableColumnsError>;
+
+    /// Create `DeleteQuery` containing the prepared statement
+    /// to delete this entity
+    fn delete_query(&self) -> DeleteQuery;
+}
+```
 
 #### Complete example
 
