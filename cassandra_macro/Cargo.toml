@@ -1,13 +1,14 @@
 [package]
 name = "cassandra_macro"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["NunuM <nuno@nunum.me>"]
 edition = "2018"
 license = "MIT"
-description = "Generate CQL from Rust structs (custom derive: cassandra_macro_derive)"
+description = "Create Cassandra tables and CRUD CQL prepared statements from Rust structs. (custom derive: cassandra_macro_derive)"
 homepage = "https://github.com/NunuM/rust-cassandra-tables-from-rust-struct-macro"
 repository = "https://github.com/NunuM/rust-cassandra-tables-from-rust-struct-macro"
 keywords = ["derive","cassandra", "cql", "struct", "generation"]
 readme = "README.md"
 
 [dependencies]
+cdrs = { version = "2" }
