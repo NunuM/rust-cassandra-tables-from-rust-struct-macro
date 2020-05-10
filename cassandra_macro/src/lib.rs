@@ -190,8 +190,8 @@
 //!fn main() {
 //!    let driver_conf = CassandraConfig {
 //!        nodes: vec!["aella:9042".to_string()],
-//!        user: String::from("mazikeen"),
-//!        password: String::from("NunoTiago12_34"),
+//!        user: String::from("test"),
+//!        password: String::from("test"),
 //!    };
 //!
 //!    let connection = CassandraDriver::new_from_config(&driver_conf);
