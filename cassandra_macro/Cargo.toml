@@ -1,6 +1,6 @@
 [package]
 name = "cassandra_macro"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["NunuM <nuno@nunum.me>"]
 edition = "2018"
 license = "MIT"

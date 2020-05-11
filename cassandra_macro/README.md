@@ -11,8 +11,8 @@ This crate is not perfect, and you are welcome to contribute.
 ```toml                         
 [dependencies]                  
 cdrs = { version = "2" }        
-cassandra_macro = "0.1.1"       
-cassandra_macro_derive = "0.1.1"
+cassandra_macro = "0.1.2"       
+cassandra_macro_derive = "0.1.2"
 ```                             
 #### Derive Api
 

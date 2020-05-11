@@ -24,8 +24,8 @@
 //! ```toml
 //! [dependencies]
 //! cdrs = { version = "2" }
-//! cassandra_macro = "0.1.1"
-//! cassandra_macro_derive = "0.1.1"
+//! cassandra_macro = "0.1.2"
+//! cassandra_macro_derive = "0.1.2"
 //! ```
 //!
 //! In your `main.rs`
