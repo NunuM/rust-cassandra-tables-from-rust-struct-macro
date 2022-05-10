@@ -26,8 +26,8 @@
 //! ```toml
 //! [dependencies]
 //! cdrs = { version = "2" }
-//! cassandra_macro = "0.1.2"
-//! cassandra_macro_derive = "0.1.2"
+//! cassandra_macro = "0.1.3"
+//! cassandra_macro_derive = "0.1.3"
 //! ```
 //!
 //! In your `main.rs`
@@ -350,13 +350,13 @@ fn impl_cassandra_macro(ast: &syn::DeriveInput) -> TokenStream {
 
             fn select_by_primary_keys(projection: cassandra_macro::Projection) -> String {
                 match projection {
-                    Projection::Count => {
+                    cassandra_macro::Projection::Count => {
                          #select_by_key.to_string().replace("*", "count(*) as count")
                     },
-                    Projection::All => {
+                    cassandra_macro::Projection::All => {
                         #select_by_key.to_string()
                     },
-                    Projection::Columns(c) => {
+                    cassandra_macro::Projection::Columns(c) => {
                          let column_selection : String = c.join(",");
 
                          #select_by_key.to_string().replace("*", column_selection.as_str())
@@ -366,13 +366,13 @@ fn impl_cassandra_macro(ast: &syn::DeriveInput) -> TokenStream {
 
             fn select_by_primary_and_cluster_keys(projection: cassandra_macro::Projection) -> String {
                 match projection {
-                    Projection::Count => {
+                    cassandra_macro::Projection::Count => {
                          #select_by_keys.to_string().replace("*", "count(*) as count")
                     },
-                    Projection::All => {
+                    cassandra_macro::Projection::All => {
                         #select_by_keys.to_string()
                     },
-                    Projection::Columns(c) => {
+                    cassandra_macro::Projection::Columns(c) => {
                          let column_selection : String = c.join(",");
 
                          #select_by_keys.to_string().replace("*", column_selection.as_str())

@@ -21,7 +21,7 @@ use uuid::Uuid;
 
 #[table(keyspace = "test", options = "comment='Only for RUST users' | COMPACTION = {'class':'SizeTieredCompactionStrategy'}")]
 #[derive(Debug, CassandraTable)]
-pub struct User {
+pub struct UserTestExample {
     #[column(type = "TEXT", primary_key)]
     username: String,
 
@@ -38,15 +38,15 @@ pub struct User {
     updated: i64,
 }
 
-impl User {
+impl UserTestExample {
     fn set_first_name(&mut self, first_name: String) {
         self.first_name = first_name;
     }
 }
 
-impl Default for User {
+impl Default for UserTestExample {
     fn default() -> Self {
-        User {
+        UserTestExample {
             username: "Rust".to_string(),
             user_internal_id: Uuid::new_v4(),
             first_name: "rust".to_string(),
@@ -56,7 +56,7 @@ impl Default for User {
     }
 }
 
-impl TryFromRow for User {
+impl TryFromRow for UserTestExample {
     fn try_from_row(row: Row) -> Result<Self, cdrs::Error> {
         let username = row.r_by_name::<String>("username")?;
         let user_internal_id = row.r_by_name::<Uuid>("user_internal_id")?;
@@ -64,7 +64,7 @@ impl TryFromRow for User {
         let created: i64 = row.r_by_name::<i64>("created")?;
         let updated: i64 = row.r_by_name::<i64>("updated")?;
 
-        Ok(User {
+        Ok(UserTestExample {
             username,
             user_internal_id,
             first_name,
@@ -150,32 +150,32 @@ impl CassandraDriver {
 
 fn main() {
     let driver_conf = CassandraConfig {
-        nodes: vec!["aella:9042".to_string()],
-        user: String::from("mazikeen"),
-        password: String::from("NunoTiago12_34"),
+        nodes: vec!["192.168.1.41:9042".to_string()],
+        user: String::from("test"),
+        password: String::from("test"),
     };
 
     let connection = CassandraDriver::new_from_config(&driver_conf);
 
-    println!("Keyspace:.{}.", User::key_space());
-    println!("Table name:.{}.", User::table_name());
-    println!("Creating table:{}", User::create_table_cql());
-    connection.execute_simple_statement(User::create_table_cql()).expect("Must create table");
+    println!("Keyspace:.{}.", UserTestExample::key_space());
+    println!("Table name:.{}.", UserTestExample::table_name());
+    println!("Creating table:{}", UserTestExample::create_table_cql());
+    connection.execute_simple_statement(UserTestExample::create_table_cql()).expect("Must create table");
 
     println!("You can test those by yourself");
-    println!("{}", User::select_by_primary_keys(Projection::Columns(vec!["created".to_string()])));
-    println!("{}", User::select_by_primary_and_cluster_keys(Projection::All));
-    println!("{}", User::update_by_primary_keys(vec!["updated".to_string()]));
-    println!("{}", User::update_by_primary_and_cluster_keys(vec!["updated".to_string()]));
-    println!("{}", User::delete_by_primary_keys());
-    println!("{}", User::delete_by_primary_and_cluster_keys());
+    println!("{}", UserTestExample::select_by_primary_keys(Projection::Columns(vec!["created".to_string()])));
+    println!("{}", UserTestExample::select_by_primary_and_cluster_keys(Projection::All));
+    println!("{}", UserTestExample::update_by_primary_keys(vec!["updated".to_string()]));
+    println!("{}", UserTestExample::update_by_primary_and_cluster_keys(vec!["updated".to_string()]));
+    println!("{}", UserTestExample::delete_by_primary_keys());
+    println!("{}", UserTestExample::delete_by_primary_and_cluster_keys());
 
-    let mut rust_user = User::default();
+    let mut rust_user = UserTestExample::default();
 
     println!("Storing rust: {}", rust_user.store_query().query());
     connection.execute_store_query(&rust_user.store_query()).expect("User must be stored");
 
-    let rust_user_from_db: Option<User> = connection.find::<User>(vec!["Rust".to_string()]).unwrap();
+    let rust_user_from_db: Option<UserTestExample> = connection.find::<UserTestExample>(vec!["Rust".to_string()]).unwrap();
     assert!(rust_user_from_db.unwrap().username.eq(&rust_user.username), "Must be the same");
 
     println!("Update rust:{}", rust_user.update_query().unwrap().query());
@@ -183,13 +183,13 @@ fn main() {
 
     connection.execute_update_query(&rust_user.update_query().unwrap()).unwrap();
 
-    let rust_user_from_db_1 = connection.find::<User>(vec!["Rust".to_string()]).unwrap();
+    let rust_user_from_db_1 = connection.find::<UserTestExample>(vec!["Rust".to_string()]).unwrap();
 
     assert!(rust_user_from_db_1.unwrap().username.eq(&rust_user.username), "Must be the same");
 
     println!("Delete:{}", rust_user.delete_query().query());
     connection.execute_delete_query(&rust_user.delete_query()).expect("Must be deleted");
 
-    println!("Dropping table: {}", User::drop_table_cql());
-    connection.execute_simple_statement(User::drop_table_cql()).expect("Table must be removed");
+    println!("Dropping table: {}", UserTestExample::drop_table_cql());
+    connection.execute_simple_statement(UserTestExample::drop_table_cql()).expect("Table must be removed");
 }
